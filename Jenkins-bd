@@ -18,7 +18,7 @@ pipeline {
         FULLSCAN = 'true'
     }
     tools {
-        maven 'maven-3.9'
+        maven 'maven-3'
         jdk 'openjdk-17'
     }
     stages {
