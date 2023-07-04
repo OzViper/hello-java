@@ -13,11 +13,13 @@
 
 pipeline {
     agent {
-        label 'linux64'
+        any
     }
     environment {
         // full scan on pushes to important branches
         FULLSCAN = 'true'
+        IO_POC_PROJECT_NAME = 'JSD-hello-java'
+        IO_POC_PROJECT_VERSION = 'main'
     }
     tools {
         maven 'maven-3'
@@ -40,7 +42,7 @@ pipeline {
                 sh '''
                     echo "Running Blackduck based on IO Prescription"
                     rm -fr /tmp/detect8.sh
-                    curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect7.sh
+                    curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect8.sh
                     bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION} --blackduck.trust.cert=true
                 '''
             }
