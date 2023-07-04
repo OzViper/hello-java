@@ -35,7 +35,7 @@ pipeline {
                             echo "Running Blackduck"
                             rm -fr /tmp/detect8.sh
                             curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect8.sh
-                            bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION} --blackduck.trust.cert=true
+                            bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION}
                         '''
                     }
                 }
