@@ -1,15 +1,7 @@
 // Example Jenkinsfile with SIG Security Scan that implements:
-// - Black Duck INTELLIGENT & Coverity FULL scans on pushes to "important" branches
-// - Black Duck RAPID & Coverity INCREMENTAL scans on PRs to "important" branches
-// - Import results into CodeDX on pushes to "important" branches
+// - Black Duck INTELLIGENT scans on pushes to "important" branches
+// - Black Duck RAPID scans on PRs to "important" branches
 
-// normally not needed unless you have multiple Connect instances
-// see also coverityInstanceUrl in withCoverityEnvironment below
-
-
-// CodeDX plugin only supports projectId, not projectName, see ER CDX-1693
-// need to manually lookup projectId and set here
-// def CODEDX_PROJECT_ID = '1'
 
 pipeline {
     agent any
@@ -40,7 +32,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'Blackduck-testing-AuthToken', variable: 'BLACKDUCK_ACCESS_TOKEN')]) {
                         echo "Stage - Blackduck"
                         sh '''
-                            echo "Running Blackduck based on IO Prescription"
+                            echo "Running Blackduck"
                             rm -fr /tmp/detect8.sh
                             curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect8.sh
                             bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION} --blackduck.trust.cert=true
