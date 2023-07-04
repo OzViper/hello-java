@@ -21,11 +21,6 @@ pipeline {
         IO_POC_PROJECT_VERSION = 'main'
     }
 
-    tools {
-        maven 'maven-3'
-    
-    }
-
     stages {
         stage('Build') {
             steps {
@@ -39,13 +34,18 @@ pipeline {
         }
         stage('SCA - Blackduck') {
             steps {
-                echo "Stage - Blackduck"
-                sh '''
-                    echo "Running Blackduck based on IO Prescription"
-                    rm -fr /tmp/detect8.sh
-                    curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect8.sh
-                    bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION} --blackduck.trust.cert=true
-                '''
+                script {
+                    // Retrieve the Black Duck access token from Jenkins credentials
+                    withCredentials([string(credentialsId: 'blackduck-access-token', variable: 'BLACKDUCK_ACCESS_TOKEN')]) {
+                        echo "Stage - Blackduck"
+                        sh '''
+                            echo "Running Blackduck based on IO Prescription"
+                            rm -fr /tmp/detect8.sh
+                            curl -s -L https://detect.synopsys.com/detect8.sh > /tmp/detect8.sh
+                            bash /tmp/detect8.sh --blackduck.url="${BLACKDUCK_URL}" --blackduck.api.token="${BLACKDUCK_ACCESS_TOKEN}" --detect.project.name="${IO_POC_PROJECT_NAME}" --detect.project.version.name=${IO_POC_PROJECT_VERSION} --blackduck.trust.cert=true
+                        '''
+                    }
+                }
             }
         }
     }
@@ -57,3 +57,4 @@ pipeline {
         }
     }
 }
+
