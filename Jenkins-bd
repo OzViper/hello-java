@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Retrieve the Black Duck access token from Jenkins credentials
-                    withCredentials([string(credentialsId: 'BlackDuck2-AuthToken', variable: 'BLACKDUCK_ACCESS_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'BlackDuck-testing-AuthToken', variable: 'BLACKDUCK_ACCESS_TOKEN')]) {
                         echo "Stage - Blackduck"
                         sh '''
                             echo "Running Blackduck based on IO Prescription"
