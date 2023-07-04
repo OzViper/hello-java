@@ -52,5 +52,4 @@ pipeline {
             archiveArtifacts allowEmptyArchive: true, artifacts: 'idir/build-log.txt, idir/output/analysis-log.txt, *_BlackDuck_RiskReport.pdf'
             cleanWs()
         }
-    }
 }
