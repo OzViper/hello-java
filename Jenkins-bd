@@ -19,7 +19,7 @@ pipeline {
         FULLSCAN = 'true'
         IO_POC_PROJECT_NAME = 'JSD-hello-java'
         IO_POC_PROJECT_VERSION = 'main'
-        BLACKDUCK_URL = 'env.BLACKDUCK_URL'
+        BLACKDUCK_URL = "https://testing.blackduck.synopsys.com"
     }
 
     stages {
